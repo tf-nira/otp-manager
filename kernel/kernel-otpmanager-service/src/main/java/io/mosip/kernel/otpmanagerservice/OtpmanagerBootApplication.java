@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class OtpmanagerServiceApplication {
+public class OtpmanagerBootApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(OtpmanagerServiceApplication.class, args);
+		SpringApplication.run(OtpmanagerBootApplication.class, args);
 	}
 }
