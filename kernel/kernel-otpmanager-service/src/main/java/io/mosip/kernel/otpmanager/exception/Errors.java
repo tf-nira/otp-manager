@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Sagar Mahapatra
  * @since 1.0.0
  */
-public class MosipErrors implements Serializable {
+public class Errors implements Serializable {
 	/**
 	 * Serializable version ID.
 	 */
@@ -34,7 +34,7 @@ public class MosipErrors implements Serializable {
 	 * @param errorMessage
 	 *            The error message.
 	 */
-	public MosipErrors(String errorCode, String errorMessage) {
+	public Errors(String errorCode, String errorMessage) {
 		super();
 		this.errorCode = errorCode;
 		this.errorMessage = errorMessage;

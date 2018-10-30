@@ -1,4 +1,4 @@
-package io.mosip.kernel.otpmanagerapi.exception;
+package io.mosip.kernel.otpmanager.exception;
 
 import io.mosip.kernel.core.exception.BaseUncheckedException;
 
@@ -9,7 +9,7 @@ import io.mosip.kernel.core.exception.BaseUncheckedException;
  * @version 1.0.0
  *
  */
-public class MosipResourceNotFoundException extends BaseUncheckedException {
+public class ResourceNotFoundException extends BaseUncheckedException {
 
 	/**
 	 * Generated ID.
@@ -24,7 +24,7 @@ public class MosipResourceNotFoundException extends BaseUncheckedException {
 	 * @param errorMessage
 	 *            the error message
 	 */
-	public MosipResourceNotFoundException(String errorCode, String errorMessage) {
+	public ResourceNotFoundException(String errorCode, String errorMessage) {
 		super(errorCode, errorMessage);
 	}
 }
