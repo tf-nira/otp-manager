@@ -12,7 +12,7 @@ import io.mosip.kernel.core.exception.BaseUncheckedException;
  * @since 1.0.0
  * 
  */
-public class OtpInvalidArgumentExceptionHandler extends BaseUncheckedException {
+public class InvalidArgumentExceptionHandler extends BaseUncheckedException {
 	/**
 	 * Serializable version ID.
 	 */
@@ -21,13 +21,13 @@ public class OtpInvalidArgumentExceptionHandler extends BaseUncheckedException {
 	/**
 	 * This variable holds the MosipErrors list.
 	 */
-	private final List<Errors> list;
+	private final List<Error> list;
 
 	/**
 	 * @param list
 	 *            The error list.
 	 */
-	public OtpInvalidArgumentExceptionHandler(List<Errors> list) {
+	public InvalidArgumentExceptionHandler(List<Error> list) {
 		this.list = list;
 	}
 
@@ -36,7 +36,7 @@ public class OtpInvalidArgumentExceptionHandler extends BaseUncheckedException {
 	 * 
 	 * @return The error list.
 	 */
-	public List<Errors> getList() {
+	public List<Error> getList() {
 		return list;
 	}
 }

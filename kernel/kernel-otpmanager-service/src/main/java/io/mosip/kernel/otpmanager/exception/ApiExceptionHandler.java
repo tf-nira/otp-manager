@@ -21,7 +21,7 @@ import io.mosip.kernel.otpmanager.constant.OtpErrorConstants;
  * @since 1.0.0
  */
 @RestControllerAdvice
-public class OtpControllerAdvice {
+public class ApiExceptionHandler {
 	/**
 	 * This variable represents the errors.
 	 */
@@ -35,13 +35,13 @@ public class OtpControllerAdvice {
 	 * @return The response entity.
 	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<Map<String, ArrayList<Errors>>> otpGeneratorValidity(
+	public ResponseEntity<Map<String, ArrayList<Error>>> otpGeneratorValidity(
 			final MethodArgumentNotValidException exception) {
-		Errors error = new Errors(OtpErrorConstants.OTP_GEN_ILLEGAL_KEY_INPUT.getErrorCode(),
+		Error error = new Error(OtpErrorConstants.OTP_GEN_ILLEGAL_KEY_INPUT.getErrorCode(),
 				OtpErrorConstants.OTP_GEN_ILLEGAL_KEY_INPUT.getErrorMessage());
-		ArrayList<Errors> errorList = new ArrayList<>();
+		ArrayList<Error> errorList = new ArrayList<>();
 		errorList.add(error);
-		Map<String, ArrayList<Errors>> map = new HashMap<>();
+		Map<String, ArrayList<Error>> map = new HashMap<>();
 		map.put(err, errorList);
 		return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
 	}
@@ -54,16 +54,16 @@ public class OtpControllerAdvice {
 	 *            The exception.
 	 * @return The response entity.
 	 */
-	@ExceptionHandler(OtpInvalidArgumentExceptionHandler.class)
-	public ResponseEntity<Object> otpValidationValidity(final OtpInvalidArgumentExceptionHandler exception) {
-		Map<String, List<Errors>> map = new HashMap<>();
+	@ExceptionHandler(InvalidArgumentExceptionHandler.class)
+	public ResponseEntity<Object> otpValidationValidity(final InvalidArgumentExceptionHandler exception) {
+		Map<String, List<Error>> map = new HashMap<>();
 		map.put(err, exception.getList());
 		return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
 	}
 	
 	@ExceptionHandler(ResourceNotFoundExceptionHandler.class)
 	public ResponseEntity<Object> otpResourceValidity(final ResourceNotFoundExceptionHandler exception) {
-		Map<String, List<Errors>> map = new HashMap<>();
+		Map<String, List<Error>> map = new HashMap<>();
 		map.put(err, exception.getList());
 		return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
 	}
