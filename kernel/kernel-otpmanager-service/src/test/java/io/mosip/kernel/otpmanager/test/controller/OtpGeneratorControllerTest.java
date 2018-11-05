@@ -1,4 +1,4 @@
-package io.mosip.kernel.otpmanager.test.generator;
+package io.mosip.kernel.otpmanager.test.controller;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.BDDMockito.given;
@@ -14,7 +14,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -25,8 +24,7 @@ import io.mosip.kernel.otpmanager.service.impl.OtpGeneratorServiceImpl;
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @SpringBootTest(classes = OtpmanagerBootApplication.class)
-@TestPropertySource("classpath:/test.application.properties")
-public class GeneratorControllerTest {
+public class OtpGeneratorControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -34,13 +32,14 @@ public class GeneratorControllerTest {
 	private OtpGeneratorServiceImpl service;
 
 	@Test
-	public void generateOtpTest() throws Exception {
+	public void testOtpGenerationController() throws Exception {
 		String otp = "3214";
 		OtpGeneratorResponseDto dto = new OtpGeneratorResponseDto();
 		dto.setOtp(otp);
 		given(service.getOtp(Mockito.any())).willReturn(dto);
 		String json = "{\"key\":\"123456789\"}";
-		mockMvc.perform(post("/otpmanager/otps").contentType(MediaType.APPLICATION_JSON).content(json))
+		mockMvc.perform(post("/otp/generate").contentType(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(status().isCreated()).andExpect(jsonPath("$.otp", is("3214")));
 	}
+
 }
