@@ -17,7 +17,7 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 /**
  * This class is for input logging of all parameters in HTTP requests
  * 
- * @author Mindtree Ltd.
+ * @author Bal Vikash Sharma
  *
  */
 public class ReqResFilter implements Filter {
