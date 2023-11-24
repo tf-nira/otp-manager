@@ -18,5 +18,5 @@ import io.mosip.kernel.otpmanager.entity.OtpEntity;
  */
 @Repository
 public interface OtpRepository extends BaseRepository<OtpEntity, String> {
-	Optional<OtpEntity> findByRefId(String refId);
+	Optional<OtpEntity> findFirstByRefIdOrderByGeneratedDtimesDesc(String refId);
 }

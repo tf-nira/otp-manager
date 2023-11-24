@@ -48,7 +48,7 @@ public class OtpValidatorServiceTest {
 		entity.setValidationRetryCount(0);
 		entity.setStatusCode("OTP_UNUSED");
 		entity.setUpdatedDtimes(LocalDateTime.now(ZoneId.of("UTC")).plusSeconds(50));
-		when(repository.findByRefId("15291F67D99EA7BC578C3544DADFBB991E66FA69CB36FF70FE30E798E111FF5F")).thenReturn(Optional.of(entity));
+		when(repository.findFirstByRefIdOrderByGeneratedDtimesDesc("15291F67D99EA7BC578C3544DADFBB991E66FA69CB36FF70FE30E798E111FF5F")).thenReturn(Optional.of(entity));
 		mockMvc.perform(get("/otp/validate?key=testKey&otp=1234").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.response.status", is("success")));
 	}
@@ -64,7 +64,7 @@ public class OtpValidatorServiceTest {
 		entity.setValidationRetryCount(0);
 		entity.setStatusCode("OTP_UNUSED");
 		entity.setUpdatedDtimes(LocalDateTime.now());
-		when(repository.findByRefId("15291F67D99EA7BC578C3544DADFBB991E66FA69CB36FF70FE30E798E111FF5F")).thenReturn(Optional.of(entity));
+		when(repository.findFirstByRefIdOrderByGeneratedDtimesDesc("15291F67D99EA7BC578C3544DADFBB991E66FA69CB36FF70FE30E798E111FF5F")).thenReturn(Optional.of(entity));
 		mockMvc.perform(get("/otp/validate?key=testKey&otp=5431").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.response.status", is("failure")));
 	}
@@ -80,7 +80,7 @@ public class OtpValidatorServiceTest {
 		entity.setValidationRetryCount(3);
 		entity.setStatusCode("OTP_UNUSED");
 		entity.setUpdatedDtimes(LocalDateTime.now());
-		when(repository.findByRefId("15291F67D99EA7BC578C3544DADFBB991E66FA69CB36FF70FE30E798E111FF5F")).thenReturn(Optional.of(entity));
+		when(repository.findFirstByRefIdOrderByGeneratedDtimesDesc("15291F67D99EA7BC578C3544DADFBB991E66FA69CB36FF70FE30E798E111FF5F")).thenReturn(Optional.of(entity));
 		mockMvc.perform(get("/otp/validate?key=testKey&otp=5431").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.response.status", is("failure")));
 	}
@@ -96,7 +96,7 @@ public class OtpValidatorServiceTest {
 		entity.setValidationRetryCount(3);
 		entity.setStatusCode("KEY_FREEZED");
 		entity.setUpdatedDtimes(LocalDateTime.now(ZoneId.of("UTC")).minus(1, ChronoUnit.MINUTES));
-		when(repository.findByRefId("15291F67D99EA7BC578C3544DADFBB991E66FA69CB36FF70FE30E798E111FF5F")).thenReturn(Optional.of(entity));
+		when(repository.findFirstByRefIdOrderByGeneratedDtimesDesc("15291F67D99EA7BC578C3544DADFBB991E66FA69CB36FF70FE30E798E111FF5F")).thenReturn(Optional.of(entity));
 		mockMvc.perform(get("/otp/validate?key=testKey&otp=2345").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.response.status", is("failure")));
 	}
@@ -112,7 +112,7 @@ public class OtpValidatorServiceTest {
 		entity.setValidationRetryCount(0);
 		entity.setStatusCode("KEY_FREEZED");
 		entity.setUpdatedDtimes(LocalDateTime.now().minus(20, ChronoUnit.SECONDS));
-		when(repository.findByRefId("15291F67D99EA7BC578C3544DADFBB991E66FA69CB36FF70FE30E798E111FF5F")).thenReturn(Optional.of(entity));
+		when(repository.findFirstByRefIdOrderByGeneratedDtimesDesc("15291F67D99EA7BC578C3544DADFBB991E66FA69CB36FF70FE30E798E111FF5F")).thenReturn(Optional.of(entity));
 		mockMvc.perform(get("/otp/validate?key=testKey&otp=1234").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.response.status", is("failure")));
 	}

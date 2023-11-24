@@ -88,7 +88,7 @@ public class OtpGeneratorServiceImpl implements OtpGenerator<OtpGeneratorRequest
 		 * Checking whether the key exists in the repository.
 		 */
 		String refIdHash = OtpManagerUtils.getHash(otpDto.getKey());
-		Optional<OtpEntity> entityOpt = otpRepository.findByRefId(refIdHash);
+		Optional<OtpEntity> entityOpt = otpRepository.findFirstByRefIdOrderByGeneratedDtimesDesc(refIdHash);
 		if (entityOpt.isPresent() && (entityOpt.get().getStatusCode().equals(OtpStatusConstants.KEY_FREEZED.getProperty()))
 				&& (OtpManagerUtils.timeDifferenceInSeconds(entityOpt.get().getUpdatedDtimes(),
 						LocalDateTime.now(ZoneId.of("UTC"))) <= Integer.parseInt(keyFreezeTime))) {
@@ -99,6 +99,10 @@ public class OtpGeneratorServiceImpl implements OtpGenerator<OtpGeneratorRequest
 				generatedOtp = localOtp;
 			} else {
 				generatedOtp = otpProvider.computeOtp(otpDto.getKey(), otpLength, macAlgorithm);
+			}
+			
+			if (entityOpt.isPresent()) {
+				otpRepository.delete(entityOpt.get());
 			}
 			
 			OtpEntity otp = new OtpEntity();

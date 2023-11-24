@@ -89,7 +89,7 @@ public class OtpValidatorServiceImpl implements OtpValidator<ResponseEntity<OtpV
 	
 		// The OTP entity for a specific key.
 		String refIdHash = OtpManagerUtils.getHash(key);
-		Optional<OtpEntity> otpEntityOpt = otpRepository.findByRefId(refIdHash);
+		Optional<OtpEntity> otpEntityOpt = otpRepository.findFirstByRefIdOrderByGeneratedDtimesDesc(refIdHash);
 		responseDto = new OtpValidatorResponseDto();
 		responseDto.setMessage(OtpStatusConstants.FAILURE_MESSAGE.getProperty());
 		responseDto.setStatus(OtpStatusConstants.FAILURE_STATUS.getProperty());
