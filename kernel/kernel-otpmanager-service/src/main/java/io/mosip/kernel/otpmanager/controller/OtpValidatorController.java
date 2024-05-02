@@ -50,7 +50,7 @@ public class OtpValidatorController {
 			@ApiResponse(responseCode = "404", description = "Not Found" ,content = @Content(schema = @Schema(hidden = true)))})
 	@PreAuthorize("hasAnyRole(@authorizedRoles.getGetotpvalidate())")
 	@GetMapping(value = "/otp/validate")
-	public ResponseWrapper<OtpValidatorResponseDto> validateOtp(@RequestParam String key, @RequestParam String otp) {
+	public ResponseWrapper<OtpValidatorResponseDto> validateOtp(@RequestParam("key") String key, @RequestParam("otp") String otp) {
 		ResponseWrapper<OtpValidatorResponseDto> responseWrapper = new ResponseWrapper<>();
 		responseWrapper.setResponse(otpValidatorService.validateOtp(key, otp).getBody());
 		return responseWrapper;

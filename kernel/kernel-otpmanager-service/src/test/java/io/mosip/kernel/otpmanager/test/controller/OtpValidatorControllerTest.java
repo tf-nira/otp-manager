@@ -8,20 +8,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import io.mosip.kernel.otpmanager.controller.OtpValidatorController;
 import io.mosip.kernel.otpmanager.dto.OtpValidatorResponseDto;
 import io.mosip.kernel.otpmanager.service.impl.OtpValidatorServiceImpl;
 import io.mosip.kernel.otpmanager.test.OtpmanagerTestBootApplication;
 
-@SpringBootTest(classes = OtpmanagerTestBootApplication.class)
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @AutoConfigureMockMvc
+@SpringBootTest(classes = OtpmanagerTestBootApplication.class)
 public class OtpValidatorControllerTest {
 	@Mock
 	private OtpValidatorServiceImpl service;
