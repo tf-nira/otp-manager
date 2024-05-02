@@ -6,31 +6,44 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import io.mosip.kernel.otpmanager.controller.OtpGeneratorController;
 import io.mosip.kernel.otpmanager.dto.OtpGeneratorResponseDto;
 import io.mosip.kernel.otpmanager.service.impl.OtpGeneratorServiceImpl;
 import io.mosip.kernel.otpmanager.test.OtpmanagerTestBootApplication;
 
-@RunWith(SpringRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 @AutoConfigureMockMvc
 @SpringBootTest(classes = OtpmanagerTestBootApplication.class)
 public class OtpGeneratorControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 
-	@MockBean
+	@Mock
 	private OtpGeneratorServiceImpl service;
+	
+	@InjectMocks
+    private OtpGeneratorController otpGeneratorController;
+	
+	 @Before
+	    public void setup() {
+		  this.mockMvc = MockMvcBuilders.standaloneSetup(otpGeneratorController).build();
+
+	    }
 
 	@WithUserDetails("individual")
 	@Test
