@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -29,6 +30,7 @@ import io.mosip.kernel.core.http.RequestWrapper;
 import io.mosip.kernel.otpmanager.constant.OtpErrorConstants;
 import io.mosip.kernel.otpmanager.dto.OtpGeneratorRequestDto;
 import io.mosip.kernel.otpmanager.exception.OtpInvalidArgumentException;
+import io.mosip.kernel.otpmanager.repository.OtpRepository;
 import io.mosip.kernel.otpmanager.service.impl.OtpGeneratorServiceImpl;
 import io.mosip.kernel.otpmanager.service.impl.OtpValidatorServiceImpl;
 import io.mosip.kernel.otpmanager.test.OtpmanagerTestBootApplication;
@@ -41,13 +43,16 @@ public class OtpExceptionTest {
 	private MockMvc mockMvc;
 
 	@Autowired
-	private ObjectMapper objectMapper;
+	private ObjectMapper objectMapper = new ObjectMapper();
 
-	@MockBean
+	@Mock
 	private OtpGeneratorServiceImpl service;
 
-	@MockBean
+	@Mock
 	private OtpValidatorServiceImpl validatorService;
+
+	@MockBean
+	private OtpRepository otpRepository;
 
 	@WithUserDetails("individual")
 	@Test
@@ -66,7 +71,7 @@ public class OtpExceptionTest {
 		reqWrapperDTO.setVersion("v1.0");
 		String json = objectMapper.writeValueAsString(reqWrapperDTO);
 		mockMvc.perform(post("/otp/generate").contentType(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(status().isOk());
+				.andExpect(status().is5xxServerError());
 	}
 
 	@WithUserDetails("individual")

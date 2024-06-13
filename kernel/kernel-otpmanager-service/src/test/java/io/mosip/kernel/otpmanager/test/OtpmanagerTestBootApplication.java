@@ -2,6 +2,7 @@ package io.mosip.kernel.otpmanager.test;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 /**
  * Crypto manager application
@@ -10,7 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 1.0.0
  *
  */
-@SpringBootApplication(scanBasePackages = { "io.mosip.kernel.otpmanager.*" })
+@SpringBootApplication(scanBasePackages = { "io.mosip.kernel.otpmanager.*" },
+exclude={DataSourceAutoConfiguration.class})
 public class OtpmanagerTestBootApplication {
 
 	/**

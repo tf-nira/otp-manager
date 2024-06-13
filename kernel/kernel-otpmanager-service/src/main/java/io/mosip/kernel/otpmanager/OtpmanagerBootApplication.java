@@ -2,6 +2,7 @@ package io.mosip.kernel.otpmanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
  * OTP Manager Application
@@ -12,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication(scanBasePackages = { "io.mosip.kernel.otpmanager.*", "${mosip.auth.adapter.impl.basepackage}",
-		"io.mosip.kernel.core.logger.config" })
+		"io.mosip.kernel.core.logger.config", "io.mosip.kernel.dataaccess.hibernate.config" })
 public class OtpmanagerBootApplication {
 
 	/**
